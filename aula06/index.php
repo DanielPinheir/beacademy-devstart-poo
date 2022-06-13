@@ -2,15 +2,27 @@
 
 include 'vendor/autoload.php';
 
-//usando um alias indicarndo o caminho de forma mais rapida
-use Classes\Config\Usuario;
-use Classes\Categoria;
+//criando um PDF com Dompdf
+// reference the Dompdf namespace
+use Dompdf\Dompdf;
 
-//$us1 = new Classes\Usuario();
-$us2 = new Usuario();
+// instantiate and use the dompdf class
+$dompdf = new Dompdf();
 
-$c1 = new Categoria();
+$html =  '';
 
-// var_dump($us1);
-var_dump($us2);
-var_dump($c1);
+for ($i = 0; $i < 10; $i++) {
+    $html .= 'ó o pente! <br>';
+}
+
+$dompdf->loadHtml('<h1>Olá mundo, estou aprendendo PHP!!!</h1>' . $html);
+
+//linha opcional
+// (Optional) Setup the paper size and orientation
+$dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+$dompdf->render();
+
+// Output the generated PDF to Browser
+$dompdf->stream();
